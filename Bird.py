@@ -26,11 +26,17 @@ class Bird:
         pass
 
     def draw(self):
-        pass
+        if self.dir == 1:
+            self.image.clip_composite_draw(0, 0, 92, 70, 0, ' ', self.x, self.y)
+        elif self.dir == -1:
+            self.image.clip_draw(92, 0, 92, 70, 0, 'v', self.x, self.y)
 
-    def do(self):
-        pass
+
 
     def update(self):
-        pass
+        
+        if self.x < 50:
+            self.dir = 1
+        elif self.x > 1550:
+            self.dir = -1
 
