@@ -28,9 +28,9 @@ class Bird:
 
     def draw(self):
         if self.dir == 1:
-            self.image.clip_composite_draw(0, 0, 92, 70, 0, ' ', self.x, self.y)
+            self.image.clip_composite_draw(0, 0, 183, 168, 0, ' ', self.x, self.y, 80, 80)
         elif self.dir == -1:
-            self.image.clip_draw(92, 0, 92, 70, 0, 'v', self.x, self.y)
+            self.image.clip_composite_draw(0, 0, 183, 168, 0, 'h', self.x, self.y, 80, 80)
 
 
 
