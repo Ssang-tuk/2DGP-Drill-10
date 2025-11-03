@@ -22,22 +22,41 @@ class Bird:
         self.x = random.randint(100, 500)
         self.y = random.randint(300, 500)
         self.dir = 1
+        self.change_y = 0
+        self.change_x = 0
         self.frame = 0
         self.image = load_image('bird_animation.png')
 
 
     def draw(self):
+        frame_index = int(self.frame)
+
+        if frame_index < 5:
+            self.change_y = 0
+            self.change_x = frame_index
+        elif frame_index < 10:
+            self.change_y = 1
+            self.change_x = frame_index - 5
+        else:
+            self.change_y = 2
+            self.change_x = frame_index - 10
+
         if self.dir == 1:
-            self.image.clip_composite_draw(0, 0, 183, 168, 0, ' ', self.x, self.y, 80, 80)
+            self.image.clip_composite_draw(self.change_x * 183, self.change_y * 168, 183, 168, 0, ' ', self.x, self.y, 80, 80)
         elif self.dir == -1:
-            self.image.clip_composite_draw(0, 0, 183, 168, 0, 'h', self.x, self.y, 80, 80)
+            self.image.clip_composite_draw(self.change_x * 183, self.change_y * 168, 183, 168, 0, 'h', self.x, self.y, 80, 80)
 
 
 
     def update(self):
 
-        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
+        self.frame += 12 * game_framework.frame_time
+
+        if self.frame >= FRAMES_PER_ACTION:
+            self.frame -= FRAMES_PER_ACTION
+
         self.x += self.dir * FLY_SPEED_PPS * game_framework.frame_time
+
         if self.x < 50:
             self.dir = 1
         elif self.x > 1550:
